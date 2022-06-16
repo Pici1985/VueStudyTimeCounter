@@ -1,0 +1,46 @@
+{
+  "projects": [
+    {
+      "id": 26836,
+      "project": "ez tok fura",
+      "sessionLength": "0:0:5",
+      "date": "16/6/2022"
+    },
+    {
+      "id": 4495,
+      "project": "me mos tnem lesz jo",
+      "sessionLength": "0:0:3",
+      "date": "16/6/2022"
+    },
+    {
+      "id": 41958,
+      "project": "de most igemn :) ",
+      "sessionLength": "0:0:2",
+      "date": "16/6/2022"
+    },
+    {
+      "id": 5620,
+      "project": "es most is",
+      "sessionLength": "0:0:1",
+      "date": "16/6/2022"
+    }
+  ],
+  "dates": [
+    {
+      "id": 1,
+      "date": "6/6/2022",
+      "totalStudy": "2:25:18"
+    },
+    {
+      "id": 2,
+      "date": "7/6/2022",
+      "totalStudy": "3:25:18"
+    },
+    {
+      "id": 3,
+      "date": "8/6/2022",
+      "totalStudy": "4:25:18"
+    }
+  ],
+  "profile": []
+}

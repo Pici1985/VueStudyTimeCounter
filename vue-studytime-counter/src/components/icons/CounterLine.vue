@@ -1,0 +1,169 @@
+<template>
+    <article>
+        <div class="counter-line">
+        <div>
+            <input type="text" placeholder="What are you working on?" v-model="title">
+            <!-- <p>
+                {{ $store.state.dataFromMutations }}
+            </p>    -->
+        </div>
+        <div class="counter-wrapper">
+            <div class="counter">
+            <span>
+                Current session: 
+            </span>
+            <span class="count">
+                {{ hours }}:{{ minutes }}:{{ seconds }}s
+            </span>
+            </div>
+                <button v-if="!isCounting" style="background: green;" @click="startCounting()">Start</button>
+                <button v-if="isCounting" style="background: red" @click="stopCounting(), $emit('sendData', this.dataSent)">Stop</button>
+            </div>
+        </div>
+    </article>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+    data(){
+      return {
+        isCounting: false,
+        seconds: 0,
+        minutes: 0,
+        hours: 0,
+        timer: null,
+        title: "",
+        count: "",
+        listItem: null,
+        date: null,
+        id: null,
+        dataArray: null,
+        dataSent: true
+      }
+    },
+    methods: {
+      startCounting(){
+        console.log("started count")
+        this.isCounting = true
+        this.timer = setInterval(() => {
+            this.seconds++;
+            if( this.seconds > 59 ){
+              this.seconds = 0;
+              this.minutes += 1;
+            }
+            if( this.minutes > 59 ){
+              this.minutes = 0;
+              this.hours += 1;
+            }            
+          }, 1000)
+      },       
+      stopCounting(){
+        console.log("stopped count")
+        this.isCounting = false
+        clearInterval(this.timer);
+        this.currentDate();
+        this.createListItem();
+        this.resetCounter();
+        this.pushDataToDb();
+        // console.log(this.dataArray)
+        // this.sendData();
+        // this.$store.dispatch('getDataFromDb')
+      },
+      resetCounter(){
+          this.title = ""
+          this.hours = 0
+          this.minutes = 0
+          this.seconds = 0
+      },
+      currentDate() {
+            const current = new Date();
+            const date = current.getDate()+'/'+( current.getMonth() + 1) +'/'+ current.getFullYear();
+            this.date = date;
+      },
+      createListItem(){
+          this.count = this.hours+":"+this.minutes+":"+this.seconds;
+          this.id = Math.floor(Math.random() * 100000);
+          this.listItem = {
+              id: this.id,
+              project: this.title,
+              sessionLength: this.count,
+              date: this.date
+          }
+      },
+      pushDataToDb(){
+        console.log(this.listItem);
+        axios.post('http://localhost:3000/projects', {
+            id: this.listItem.id,
+            project: this.listItem.project,
+            sessionLength: this.listItem.sessionLength,
+            date: this.listItem.date,
+        })         
+      },
+      sendData(){
+        return this.dataSent;          
+      }
+    }
+  }
+</script>
+
+<style>
+    * {
+        font-family: 'Poppins';
+    }
+
+    article {
+        width: 100%;
+    }
+
+    h1 {
+        text-align: left;
+        margin-left: 10px;
+    }
+
+    .counter-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: auto;
+        height: 70px;
+        background: lightgrey;
+        margin: 0 5px 0 5px;
+        padding: 10px;
+    }
+
+    .counter-line input {
+        height: 40px;
+        width: 33vw;
+        padding: 0 5px 0 5px;
+        margin: 0;
+        border: 0;
+    }
+
+    .counter-line button {
+        font-weight: 900;
+        height: 40px;
+        width: 135px;
+        border: 0px;
+        border-radius: 4px;
+    }
+
+    .counter-wrapper {
+        display: flex;
+    }
+
+    .counter {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 300px;
+        margin: 0 10px;
+    }
+
+    .count{
+        padding: 0px 10px;
+        min-width: 100px;
+        text-align: center;
+    }
+</style>

@@ -1,0 +1,18 @@
+    {
+      "id": 1,
+      "project": "Angular",
+      "date": "6/6/2022",
+      "sessionLength": "0:25:15"
+    },
+    {
+      "id": 2,
+      "project": "React",
+      "date": "6/6/2022",
+      "sessionLength": "0:25:15"
+    },
+    {
+      "id": 3,
+      "project": "Vue",
+      "date": "6/6/2022",
+      "sessionLength": "0:25:15"
+    }
