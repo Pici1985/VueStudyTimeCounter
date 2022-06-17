@@ -107,8 +107,11 @@ export default {
                 project:  project,
                 sessionLength: sessionLength,
                 date: date        
-            })
-            this.updateDataArray()
+            },
+                setTimeout ( 
+                    this.updateDataArray, 500
+                )
+            )
         },
         deleteProject(id, sessionLength){
             console.log(id, sessionLength)
