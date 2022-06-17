@@ -5,9 +5,10 @@
                 <!-- <span>Date: {{ project.date }}</span> -->
                 <span>{{ project.project }}</span>
                 <span>{{ project.sessionLength }}s</span>
+                <span>{{ project.id }}</span>
             </div>
             <div class="project-list-item-buttons">
-                <button>
+                <button @click="getId(project.id, project.sessionLength)">
                     <img src="../../assets/play-solid.svg" alt="">
                 </button>
                 <button>
@@ -43,16 +44,21 @@ export default {
     props: ['sentItem'],
     methods: {
         updateDataArray(){
-            console.log('update')
+            // console.log('updated')
             this.dataArray = []
             axios.get('http://localhost:3000/projects').then((response) => {
                 this.dataArray = response
             })                      
+        },
+        // innen fojtatjuk :)
+        getId(id, sessionLength){
+            console.log(id, sessionLength)
         }
-    },
+    },    
     watch: {
         sentItem: function(){
-           this.updateDataArray();
+            // console.log(this.sentItem)
+            this.updateDataArray();
         }
     },
 }

@@ -40,7 +40,7 @@ export default {
         date: null,
         id: null,
         dataArray: null,
-        dataSent: true
+        dataSent: 0
       }
     },
     methods: {
@@ -93,7 +93,7 @@ export default {
           }
       },
       pushDataToDb(){
-        console.log(this.listItem);
+        this.dataSent++
         axios.post('http://localhost:3000/projects', {
             id: this.listItem.id,
             project: this.listItem.project,

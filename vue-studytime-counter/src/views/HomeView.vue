@@ -25,7 +25,6 @@
     methods: {
       sentData(data){
         this.sentItem = data;
-        // console.log(this.sentItem);
       }
     }
   }  
