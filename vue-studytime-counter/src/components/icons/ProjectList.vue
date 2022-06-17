@@ -12,14 +12,14 @@
                 <button
                     v-if="project.id != this.clickedId" 
                     style="background: green"
-                    @click="startCountOnProject(project.id, project.sessionLength)"
+                    @click="startCountOnProject(project.id, project.sessionLength, project.date, project.project)"
                     >
                     <img src="../../assets/play-solid.svg" alt="">
                 </button>
                 <button
                     v-if="project.id == this.clickedId"
                     style="background: red" 
-                    @click="stopCountOnProject(project.id, project.sessionLength)"
+                    @click="stopCountOnProject(project.id, project.sessionLength, project.date, project.project)"
                     >
                     <img src="../../assets/stop-solid.svg" alt="">                    
                 </button>
@@ -86,10 +86,9 @@ export default {
         stopCount(){
             this.isCounting = false
             clearInterval(this.timer);
-            // return this.timer;
         },
         // innen folytatjuk :)
-        startCountOnProject(id, sessionLength){
+        startCountOnProject(id){
             if(this.isCounting === true){
                 alert(" You're already working on a different project ")
             } else {
@@ -97,15 +96,19 @@ export default {
                 this.isCounting = true
                 this.startCount()
             }
-            // console.log(id, sessionLength, this.clickedId)
         },
-        stopCountOnProject(id, sessionLength){
+        stopCountOnProject(id, sessionLength, date, project){
             this.clickedId = null
             this.isCounting = false
             this.stopCount()
-            sessionLength = this.timer
-            console.log(id, sessionLength)
-
+            sessionLength = `${this.hours}:${this.minutes}:${this.seconds}`
+            axios.put(`http://localhost:3000/projects/${id}`, {
+                id: id,
+                project:  project,
+                sessionLength: sessionLength,
+                date: date        
+            })
+            this.updateDataArray()
         },
         deleteProject(id, sessionLength){
             console.log(id, sessionLength)
