@@ -5,19 +5,30 @@
                 <!-- <span>Date: {{ project.date }}</span> -->
                 <span>{{ project.project }}</span>
                 <span>{{ project.sessionLength }}s</span>
-                <span>{{ project.id }}</span>
+                <!-- <span>{{ project.id }}</span> -->
             </div>
             <div class="project-list-item-buttons">
-                <button @click="getId(project.id, project.sessionLength)">
+                <button
+                    v-if="!isCounting" 
+                    style="background: green"
+                    @click="startCountOnProject(project.id, project.sessionLength)"
+                    >
                     <img src="../../assets/play-solid.svg" alt="">
                 </button>
-                <button>
+                <button
+                    v-if="isCounting"
+                    style="background: red" 
+                    @click="stopCountOnProject(project.id, project.sessionLength)"
+                    >
                     <img src="../../assets/stop-solid.svg" alt="">                    
                 </button>
-                <button>
+                <!-- <button>
                     <img src="../../assets/pen-to-square-solid.svg" alt="">                    
-                </button>
-                <button>
+                </button> -->
+                <button
+                    style="background: orange" 
+                    @click="deleteProject(project.id, project.sessionLength)"
+                    >
                     <img src="../../assets/trash-solid.svg" alt="">                    
                 </button>                
             </div>
@@ -32,7 +43,8 @@ import axios from 'axios'
 export default {
     data(){
         return {
-            dataArray: []
+            dataArray: [],
+            isCounting: false
         }
     },
     // ha ez a hook itt hivodik le akkor a dataArraynek at kell csapatni a projectlist komponensbe 
@@ -44,21 +56,31 @@ export default {
     props: ['sentItem'],
     methods: {
         updateDataArray(){
-            // console.log('updated')
+            console.log('updated')
             this.dataArray = []
             axios.get('http://localhost:3000/projects').then((response) => {
                 this.dataArray = response
             })                      
         },
-        // innen fojtatjuk :)
-        getId(id, sessionLength){
+        // innen folytatjuk :)
+        startCountOnProject(id, sessionLength){
+            console.log(id, sessionLength)
+            this.isCounting = true
+        },
+        stopCountOnProject(id, sessionLength){
+            console.log(id, sessionLength)
+            this.isCounting = false
+        },
+        deleteProject(id, sessionLength){
             console.log(id, sessionLength)
         }
     },    
     watch: {
         sentItem: function(){
-            // console.log(this.sentItem)
-            this.updateDataArray();
+            console.log(this.sentItem)
+            setTimeout(
+                this.updateDataArray, 500 
+            )
         }
     },
 }
