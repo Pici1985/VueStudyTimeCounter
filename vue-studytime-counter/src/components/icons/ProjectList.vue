@@ -7,16 +7,17 @@
                 <span>{{ project.sessionLength }}s</span>
                 <!-- <span>{{ project.id }}</span> -->
             </div>
+                <span v-if="project.id == this.clickedId">  {{ hours }}:{{ minutes }}:{{ seconds }}s </span>
             <div class="project-list-item-buttons">
                 <button
-                    v-if="!isCounting" 
+                    v-if="project.id != this.clickedId" 
                     style="background: green"
                     @click="startCountOnProject(project.id, project.sessionLength)"
                     >
                     <img src="../../assets/play-solid.svg" alt="">
                 </button>
                 <button
-                    v-if="isCounting"
+                    v-if="project.id == this.clickedId"
                     style="background: red" 
                     @click="stopCountOnProject(project.id, project.sessionLength)"
                     >
@@ -44,7 +45,12 @@ export default {
     data(){
         return {
             dataArray: [],
-            isCounting: false
+            clickedId: null,
+            isCounting: false,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            timer: null
         }
     },
     // ha ez a hook itt hivodik le akkor a dataArraynek at kell csapatni a projectlist komponensbe 
@@ -62,14 +68,44 @@ export default {
                 this.dataArray = response
             })                      
         },
+        startCount(){
+            console.log("started local count")
+            this.isCounting = true
+            this.timer = setInterval(() => {
+                this.seconds++;
+                if( this.seconds > 59 ){
+                this.seconds = 0;
+                this.minutes += 1;
+                }
+                if( this.minutes > 59 ){
+                this.minutes = 0;
+                this.hours += 1;
+                }            
+            }, 1000)
+        },
+        stopCount(){
+            this.isCounting = false
+            clearInterval(this.timer);
+            // return this.timer;
+        },
         // innen folytatjuk :)
         startCountOnProject(id, sessionLength){
-            console.log(id, sessionLength)
-            this.isCounting = true
+            if(this.isCounting === true){
+                alert(" You're already working on a different project ")
+            } else {
+                this.clickedId = id
+                this.isCounting = true
+                this.startCount()
+            }
+            // console.log(id, sessionLength, this.clickedId)
         },
         stopCountOnProject(id, sessionLength){
-            console.log(id, sessionLength)
+            this.clickedId = null
             this.isCounting = false
+            this.stopCount()
+            sessionLength = this.timer
+            console.log(id, sessionLength)
+
         },
         deleteProject(id, sessionLength){
             console.log(id, sessionLength)
