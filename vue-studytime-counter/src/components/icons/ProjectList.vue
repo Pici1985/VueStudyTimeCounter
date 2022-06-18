@@ -98,7 +98,7 @@ export default {
             this.isCounting = false
             clearInterval(this.timer);
         },
-        startCountOnProject(id, session, date, title){
+        startCountOnProject(id, session){
             if(this.isCounting === true){
                 alert(" You're already working on a different project ")
             } else {
@@ -118,26 +118,25 @@ export default {
                 project:  project,
                 sessionLength: sessionLength,
                 date: date        
-            },
-                setTimeout ( 
-                    this.updateDataArray, 500
-                )
+            })
+            .then (
+                this.updateDataArray
             )
         },
         deleteProject(id){
             axios.delete(`http://localhost:3000/projects/${id}`)
-            // console.log("delete this : " + id)
-            setTimeout ( 
-                this.updateDataArray, 500
+            .then(
+                this.updateDataArray    
             )
         }
     },    
     watch: {
-        sentItem: function(){
-            console.log(this.sentItem)
-            setTimeout(
-                this.updateDataArray, 500 
-            )
+        sentItem: function(promise){
+            if(promise != null){
+                promise.then(
+                    this.updateDataArray    
+                )
+            }
         }
     },
 }

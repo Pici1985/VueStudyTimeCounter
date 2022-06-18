@@ -3,12 +3,6 @@
     {
       "id": 84952,
       "project": "nah",
-      "sessionLength": "1:1:1",
-      "date": "17/6/2022"
-    },
-    {
-      "id": 84952,
-      "project": "nah",
       "sessionLength": "1:1:19",
       "date": "17/6/2022"
     },
@@ -21,8 +15,20 @@
     {
       "id": 44452,
       "project": "Miageci",
-      "sessionLength": "1:9:16",
+      "sessionLength": "1:9:10",
       "date": "17/6/2022"
+    },
+    {
+      "id": 18017,
+      "project": "Angular",
+      "sessionLength": "0:0:1",
+      "date": "18/6/2022"
+    },
+    {
+      "id": 63810,
+      "project": "akko most jo minden?",
+      "sessionLength": "0:0:6",
+      "date": "18/6/2022"
     }
   ],
   "dates": [
