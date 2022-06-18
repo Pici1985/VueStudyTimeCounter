@@ -67,9 +67,6 @@ export default {
         this.createListItem();
         this.resetCounter();
         this.pushDataToDb();
-        // console.log(this.dataArray)
-        // this.sendData();
-        // this.$store.dispatch('getDataFromDb')
       },
       resetCounter(){
           this.title = ""

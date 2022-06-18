@@ -68,6 +68,17 @@ export default {
                 this.dataArray = response
             })                      
         },
+        getCurrenstSessionLength(session){
+            // ezt ki kell igazitani
+            // console.log(session);
+            let localHours = session.slice(0, 1)
+            let localMinutes = session.slice(2,3)
+            let localSeconds = session.slice(4,5)
+            // console.log(localHours, localMinutes, localSeconds);
+            this.hours = localHours
+            this.minutes = localMinutes
+            this.seconds = localSeconds
+        },
         startCount(){
             console.log("started local count")
             this.isCounting = true
@@ -87,11 +98,11 @@ export default {
             this.isCounting = false
             clearInterval(this.timer);
         },
-        // innen folytatjuk :)
-        startCountOnProject(id){
+        startCountOnProject(id, session, date, title){
             if(this.isCounting === true){
                 alert(" You're already working on a different project ")
             } else {
+                this.getCurrenstSessionLength(session)
                 this.clickedId = id
                 this.isCounting = true
                 this.startCount()
@@ -113,8 +124,12 @@ export default {
                 )
             )
         },
-        deleteProject(id, sessionLength){
-            console.log(id, sessionLength)
+        deleteProject(id){
+            axios.delete(`http://localhost:3000/projects/${id}`)
+            // console.log("delete this : " + id)
+            setTimeout ( 
+                this.updateDataArray, 500
+            )
         }
     },    
     watch: {
