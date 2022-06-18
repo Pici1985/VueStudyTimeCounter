@@ -3,8 +3,12 @@
         <div class="project-list-item" v-for="project in dataArray.data" :key="project.id">
             <div class="project-list-item-spans">
                 <!-- <span>Date: {{ project.date }}</span> -->
-                <span>{{ project.project }}</span>
-                <span>{{ project.sessionLength }}s</span>
+                <span class="project-list-item-title">{{ project.project }}</span>
+                <span>
+                    <span v-if="project.sessionLength.hours < 10">0</span>{{ project.sessionLength.hours + " :"}}
+                    <span v-if="project.sessionLength.minutes < 10">0</span>{{ project.sessionLength.minutes + " :"}}
+                    <span v-if="project.sessionLength.seconds < 10">0</span>{{ project.sessionLength.seconds }} s
+                </span>
                 <!-- <span>{{ project.id }}</span> -->
             </div>
                 <span v-if="project.id == this.clickedId">  {{ hours }}:{{ minutes }}:{{ seconds }}s </span>
@@ -162,11 +166,10 @@ export default {
 
     .project-list-item-spans {
         width: 33vw;
-        /* border: 1px solid green; */
         display: flex;
         justify-content: space-between;
     }
-    .project-list-item-spans span:first-child {
+    .project-list-item-title {
         font-weight: 600;   
     }
 

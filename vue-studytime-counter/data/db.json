@@ -1,33 +1,23 @@
 {
   "projects": [
     {
-      "id": 84952,
-      "project": "nah",
-      "sessionLength": "1:1:19",
-      "date": "17/6/2022"
-    },
-    {
-      "id": 4952,
-      "project": "nahnahaa",
-      "sessionLength": "1:15:1",
-      "date": "17/6/2022"
-    },
-    {
-      "id": 44452,
-      "project": "Miageci",
-      "sessionLength": "1:9:10",
-      "date": "17/6/2022"
-    },
-    {
-      "id": 18017,
-      "project": "Angular",
-      "sessionLength": "0:0:1",
+      "id": 73685,
+      "project": "na most mivan?",
+      "sessionLength": {
+        "hours": 0,
+        "minutes": 0,
+        "seconds": 2
+      },
       "date": "18/6/2022"
     },
     {
-      "id": 63810,
-      "project": "akko most jo minden?",
-      "sessionLength": "0:0:6",
+      "id": 7368,
+      "project": "mivan?",
+      "sessionLength": {
+        "hours": 5,
+        "minutes": 8,
+        "seconds": 2
+      },
       "date": "18/6/2022"
     }
   ],

@@ -13,7 +13,9 @@
                 Current session: 
             </span>
             <span class="count">
-                {{ hours }}:{{ minutes }}:{{ seconds }}s
+                <span v-if="this.hours < 10">0</span>{{ hours }} :
+                <span v-if="this.minutes < 10">0</span>{{ minutes }} :
+                <span v-if="this.seconds < 10">0</span>{{ seconds }} s
             </span>
             </div>
                 <button v-if="!isCounting" style="background: green;" @click="startCounting()">Start</button>
@@ -35,7 +37,11 @@ export default {
         hours: 0,
         timer: null,
         title: "",
-        count: "",
+        count: {
+            hours: 0,
+            minutes: 0,
+            seconds: 0
+        },
         listItem: null,
         date: null,
         id: null,
@@ -80,7 +86,12 @@ export default {
             this.date = date;
       },
       createListItem(){
-          this.count = this.hours+":"+this.minutes+":"+this.seconds;
+          this.count.hours = this.hours
+          this.count.minutes = this.minutes
+          this.count.seconds = this.seconds
+          
+        //   this.count = this.hours + this.minutes + this.seconds;
+
           this.id = Math.floor(Math.random() * 100000);
           this.listItem = {
               id: this.id,
