@@ -2,14 +2,12 @@
     <div class="project-list-wrapper">
         <div class="project-list-item" v-for="project in dataArray.data" :key="project.id">
             <div class="project-list-item-spans">
-                <!-- <span>Date: {{ project.date }}</span> -->
                 <span class="project-list-item-title">{{ project.project }}</span>
                 <span>
                     <span v-if="project.sessionLength.hours < 10">0</span>{{ project.sessionLength.hours + " :"}}
                     <span v-if="project.sessionLength.minutes < 10">0</span>{{ project.sessionLength.minutes + " :"}}
                     <span v-if="project.sessionLength.seconds < 10">0</span>{{ project.sessionLength.seconds }} s
                 </span>
-                <!-- <span>{{ project.id }}</span> -->
             </div>
         
                 <div v-if="project.id == this.clickedId"> 
@@ -33,9 +31,7 @@
                     >
                     <img src="../../assets/stop-solid.svg" alt="">                    
                 </button>
-                <!-- <button>
-                    <img src="../../assets/pen-to-square-solid.svg" alt="">                    
-                </button> -->
+                
                 <button
                     style="background: orange" 
                     @click="deleteProject(project.id, project.sessionLength)"
@@ -63,7 +59,6 @@ export default {
             timer: null
         }
     },
-    // ha ez a hook itt hivodik le akkor a dataArraynek at kell csapatni a projectlist komponensbe 
     beforeCreate(){
         axios.get('http://localhost:3000/projects').then((response) => {
             this.dataArray = response
@@ -72,14 +67,12 @@ export default {
     props: ['sentItem'],
     methods: {
         updateDataArray(){
-            console.log('updated')
             this.dataArray = []
             axios.get('http://localhost:3000/projects').then((response) => {
                 this.dataArray = response
             })                      
         },
         startCount(){
-            console.log("started local count")
             this.isCounting = true
             this.timer = setInterval(() => {
                 this.seconds++;
@@ -113,14 +106,11 @@ export default {
             this.clickedId = null
             this.isCounting = false
             this.stopCount()
-            // itt van a kutya elasva eppen ugyanugy kell megtoszni mint a masik countot
             sessionLength = {
                 hours: this.hours,
                 minutes: this.minutes,
                 seconds: this.seconds 
             }
-            
-            // itt kell baszakodni
             axios.put(`http://localhost:3000/projects/${id}`, {
                 id: id,
                 project:  project,
@@ -139,9 +129,9 @@ export default {
         }
     },    
     watch: {
-        sentItem: function(promise){
-            if(promise != null){
-                promise.then(
+        sentItem: function(incomingPromise){
+            if(incomingPromise != null){
+                incomingPromise.then(
                     this.updateDataArray    
                 )
             }
@@ -152,7 +142,6 @@ export default {
 
 <style scoped>
     .project-list-wrapper {
-        /* border: 1px solid red; */
         margin: 5px 5px 0 5px;
     }
     .project-list-item {
@@ -183,7 +172,6 @@ export default {
     }
 
     .project-list-item-buttons button{
-        /* border: none; */
         margin: 1px;
         background: white;
         border-radius: 4px;

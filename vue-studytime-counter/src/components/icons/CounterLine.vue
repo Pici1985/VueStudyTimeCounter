@@ -3,9 +3,6 @@
         <div class="counter-line">
         <div>
             <input type="text" placeholder="What are you working on?" v-model="title">
-            <!-- <p>
-                {{ $store.state.dataFromMutations }}
-            </p>    -->
         </div>
         <div class="counter-wrapper">
             <div class="counter">
@@ -36,7 +33,7 @@ export default {
         minutes: 0,
         hours: 0,
         timer: null,
-        title: "",
+        title: null,
         count: {
             hours: 0,
             minutes: 0,
@@ -52,6 +49,9 @@ export default {
     methods: {
       startCounting(){
         console.log("started count")
+        if(this.title == null){
+            alert(" Please tell us what you are working on! ")
+        } else {
         this.isCounting = true
         this.timer = setInterval(() => {
             this.seconds++;
@@ -64,9 +64,9 @@ export default {
               this.hours += 1;
             }            
           }, 1000)
+        }
       },       
       stopCounting(){
-        console.log("stopped count")
         this.isCounting = false
         clearInterval(this.timer);
         this.currentDate();
@@ -89,9 +89,6 @@ export default {
           this.count.hours = this.hours
           this.count.minutes = this.minutes
           this.count.seconds = this.seconds
-          
-        //   this.count = this.hours + this.minutes + this.seconds;
-
           this.id = Math.floor(Math.random() * 100000);
           this.listItem = {
               id: this.id,
