@@ -1,24 +1,24 @@
 {
   "projects": [
     {
-      "id": 73685,
-      "project": "na most mivan?",
+      "id": 46053,
+      "project": "ez most jo?",
       "sessionLength": {
         "hours": 0,
         "minutes": 0,
-        "seconds": 2
+        "seconds": 5
       },
-      "date": "18/6/2022"
+      "date": "19/6/2022"
     },
     {
-      "id": 7368,
-      "project": "mivan?",
+      "id": 62916,
+      "project": "NAh akkor meg is vagyok?",
       "sessionLength": {
-        "hours": 5,
-        "minutes": 8,
-        "seconds": 2
+        "hours": 0,
+        "minutes": 0,
+        "seconds": 17
       },
-      "date": "18/6/2022"
+      "date": "19/6/2022"
     }
   ],
   "dates": [

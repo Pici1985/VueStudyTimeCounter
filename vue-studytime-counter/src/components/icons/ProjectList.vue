@@ -11,7 +11,13 @@
                 </span>
                 <!-- <span>{{ project.id }}</span> -->
             </div>
-                <span v-if="project.id == this.clickedId">  {{ hours }}:{{ minutes }}:{{ seconds }}s </span>
+        
+                <div v-if="project.id == this.clickedId"> 
+                    <span v-if="hours < 10">0</span>{{ this.hours + " :"}}    
+                    <span v-if="minutes < 10">0</span>{{ this.minutes + " :"}}    
+                    <span v-if="seconds < 10">0</span>{{ this.seconds }} s    
+                </div>
+            
             <div class="project-list-item-buttons">
                 <button
                     v-if="project.id != this.clickedId" 
@@ -72,17 +78,6 @@ export default {
                 this.dataArray = response
             })                      
         },
-        getCurrenstSessionLength(session){
-            // ezt ki kell igazitani
-            // console.log(session);
-            let localHours = session.slice(0, 1)
-            let localMinutes = session.slice(2,3)
-            let localSeconds = session.slice(4,5)
-            // console.log(localHours, localMinutes, localSeconds);
-            this.hours = localHours
-            this.minutes = localMinutes
-            this.seconds = localSeconds
-        },
         startCount(){
             console.log("started local count")
             this.isCounting = true
@@ -102,11 +97,13 @@ export default {
             this.isCounting = false
             clearInterval(this.timer);
         },
-        startCountOnProject(id, session){
+        startCountOnProject(id, sessionLength ){
             if(this.isCounting === true){
                 alert(" You're already working on a different project ")
             } else {
-                this.getCurrenstSessionLength(session)
+                this.hours = sessionLength.hours
+                this.minutes = sessionLength.minutes
+                this.seconds = sessionLength.seconds
                 this.clickedId = id
                 this.isCounting = true
                 this.startCount()
@@ -116,7 +113,14 @@ export default {
             this.clickedId = null
             this.isCounting = false
             this.stopCount()
-            sessionLength = `${this.hours}:${this.minutes}:${this.seconds}`
+            // itt van a kutya elasva eppen ugyanugy kell megtoszni mint a masik countot
+            sessionLength = {
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds 
+            }
+            
+            // itt kell baszakodni
             axios.put(`http://localhost:3000/projects/${id}`, {
                 id: id,
                 project:  project,

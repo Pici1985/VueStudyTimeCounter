@@ -15,7 +15,7 @@
             <span class="count">
                 <span v-if="this.hours < 10">0</span>{{ hours }} :
                 <span v-if="this.minutes < 10">0</span>{{ minutes }} :
-                <span v-if="this.seconds < 10">0</span>{{ seconds }} s
+                <span v-if="this.seconds < 10">0</span>{{ seconds }}s
             </span>
             </div>
                 <button v-if="!isCounting" style="background: green;" @click="startCounting()">Start</button>
