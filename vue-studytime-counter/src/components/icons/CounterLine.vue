@@ -7,7 +7,7 @@
         <div class="counter-wrapper">
             <div class="counter">
             <span>
-                Current session: 
+                Current: 
             </span>
             <span class="count">
                 <span v-if="this.hours < 10">0</span>{{ hours }} :
