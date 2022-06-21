@@ -1,26 +1,5 @@
 {
-  "projects": [
-    {
-      "id": 8976,
-      "project": "ettol meg jo minden nem?",
-      "sessionLength": {
-        "hours": 0,
-        "minutes": 0,
-        "seconds": 8
-      },
-      "date": "19/6/2022"
-    },
-    {
-      "id": 52489,
-      "project": "a",
-      "sessionLength": {
-        "hours": 0,
-        "minutes": 0,
-        "seconds": 2
-      },
-      "date": "19/6/2022"
-    }
-  ],
+  "projects": [],
   "dates": [
     {
       "id": 1,
